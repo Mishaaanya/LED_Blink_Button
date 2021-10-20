@@ -64,7 +64,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	int i;
+	uint8_t i=0;
 
   /* USER CODE END 1 */
 
@@ -94,16 +94,22 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-  	  if( HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_SET) {
-  		// на выводе PB12 высокий уровень, кнопка отжата
-  		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-  		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  	  if( HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET) {	// на выводе PB12 низкий уровень, кнопка нажата
+  		  i++;
+  		//  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+  		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // погасить зеленый светодиод
   	  }
-  	  else {
-  		// на выводе PB12 низкий уровень, кнопка нажата
-  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-  		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+  	  else {	// на выводе PB12 высокий уровень, кнопка отжата
+
+  		// HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); //погасить красный светодиод
+  		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); //зажечь зеленый светодиод
   	  }
+
+  	  if (i>=5) {
+  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+	}
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
