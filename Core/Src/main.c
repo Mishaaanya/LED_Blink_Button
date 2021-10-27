@@ -64,7 +64,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t i=0;
+
 
   /* USER CODE END 1 */
 
@@ -87,36 +87,38 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+uint8_t count=0;
+HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-  	  if( HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET) {	// на выводе PB12 низкий уровень, кнопка нажата
-  		  i++;
-  		//  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
-  		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // погасить зеленый светодиод
-  	  }
-  	  else {	// на выводе PB12 высокий уровень, кнопка отжата
+//  while (1)
+//  {
 
-  		// HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); //погасить красный светодиод
-  		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); //зажечь зеленый светодиод
-  	  }
-
-  	  if (i>=5) {
-  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
-	}
+//  	  if( HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET) {	// на выводе PB12 низкий уровень, кнопка нажата
+//  		  count++;
+//  		 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+//  		 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // погасить зеленый светодиод
+//  	  }
+//  	  else {	// на выводе PB12 высокий уровень, кнопка отжата
+//
+//  		// HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); //погасить красный светодиод
+//  		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); //зажечь зеленый светодиод
+//  	  }
+//
+//  	  if (count>=5) {
+//  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+//	}
 
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
-}
 
+  /* USER CODE END 3 */
+
+}
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -156,7 +158,20 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_GPIO_EXIT_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin== GPIO_PIN_1) {
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // погасить зеленый светодиод
+		count++;
+	}
+	else{
+		__NOP();
+	}
+	if (count>=5) {
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+	}
 
+}
 /* USER CODE END 4 */
 
 /**
