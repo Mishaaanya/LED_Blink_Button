@@ -9,7 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include Drivers/STM32F1xx_HAL_Driver/subdir.mk
+-include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include subdir.mk
@@ -61,8 +61,8 @@ all: main-build
 main-build: LED_Blink_Button.elf secondary-outputs
 
 # Tool invocations
-LED_Blink_Button.elf: $(OBJS) $(USER_OBJS) C:\Users\pukho\STM32CubeIDE\workspace_1.7.0\LED_Blink_Button\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "LED_Blink_Button.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\pukho\STM32CubeIDE\workspace_1.7.0\LED_Blink_Button\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LED_Blink_Button.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+LED_Blink_Button.elf: $(OBJS) $(USER_OBJS) D:\Programm\Project\ STM32\LED_Blink_Button\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "LED_Blink_Button.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Programm\Project STM32\LED_Blink_Button\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LED_Blink_Button.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

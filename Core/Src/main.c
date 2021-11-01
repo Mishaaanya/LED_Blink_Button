@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
+#include <my_callback.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -54,7 +55,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t xxx=0;
+
 /* USER CODE END 0 */
 
 /**
@@ -97,20 +98,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-//  	  if( HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET) {	// на выводе PB12 низкий уровень, кнопка нажата
-//  		  count++;
-//  		 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
-//  		 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // погасить зеленый светодиод
-//  	  }
-//  	  else {	// на выводе PB12 высокий уровень, кнопка отжата
-//
-//  		// HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); //погасить красный светодиод
-//  		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); //зажечь зеленый светодиод
-//  	  }
-//
-//  	  if (count>=5) {
-//  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+	  x=0;
 	}
 
 
@@ -165,14 +153,13 @@ void HAL_GPIO_EXIT_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin== GPIO_PIN_1) {
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // погасить зеленый светодиод
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-	//	xxx++;
+		x++;
 	}
-	else{
-		__NOP();
+
+	if (x>=5) {
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
+	x=0;
 	}
-//	if (xxx>=5) {
-//	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET); //зажечь красный светодиод
-//	}
 
 }
 /* USER CODE END 4 */
